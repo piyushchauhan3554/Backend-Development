@@ -24,6 +24,19 @@ let posts=[{
 app.get("/posts",(req,res)=>{
   res.render("index.ejs",{posts});
 })
+
+app.get("/posts/new",(req,res)=>{
+  res.render("form.ejs");
+})
+
+
+app.post("/posts",(req,res)=>{
+  console.log(req.body);
+  const {username,content}=req.body;
+  posts.push({username,content})
+  res.redirect("/posts")// by default get request
+})
+
 const PORT=3000
 app.listen(PORT,()=>{
   console.log(`server is listening at localhost:${PORT}`);
