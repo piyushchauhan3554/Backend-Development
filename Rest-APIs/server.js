@@ -40,6 +40,13 @@ app.get("/posts/:id", (req, res) => {
   res.render("show.ejs", { post });
 });
 
+
+app.delete("/posts/:id",(req,res)=>{
+  const {id}=req.params;
+  posts=posts.filter((post)=>post.id!==id)
+  res.redirect("/posts")
+})
+
 app.post("/posts", (req, res) => {
   console.log(req.body);
   const { username, content } = req.body;

@@ -1,5 +1,5 @@
 h1{
-  background-color: maroon;
+  color: maroon;
 }
 
 .username{
@@ -8,4 +8,8 @@ h1{
 
 .post{
   background-color:burlywood;
+}
+
+#create-post{
+  margin-top: 200px;
 }
