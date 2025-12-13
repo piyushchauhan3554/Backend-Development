@@ -8,27 +8,28 @@ const connection = mysql.createConnection({
   database: "delta_app",
 });
 
-let q = "show tables";
+// insert data into table using placeholders, (dynamic data)
+let q = "insert into users(id,username,email,password) values ?";
+let data = [];
+const createUser = () => {
+  return [
+    faker.string.uuid(),
+    faker.internet.username(),
+    faker.internet.email(),
+    faker.internet.password(),
+  ];
+};
+
+for(let i=1;i<=50;i++) data.push(createUser());
 try {
-  connection.query(q, (err, result) => {
-    if (err) throw new err();
-    console.log("number of tables : " + result.length);
-    for(let i=0;i<result.length;i++) console.log(result[i]);
-    
+  connection.query(q, [data], (err, result) => {
+    if (err) throw err;
+    // console.log("number of tables : " + result.length);
+    // for (let i = 0; i < result.length; i++) console.log(result[i]);
   });
 } catch (error) {
   console.log(error);
 }
 
-const createUser = () => {
-  return {
-    userId: faker.string.uuid(),
-    username: faker.internet.username(),
-    email: faker.internet.email(),
-    password: faker.internet.password(),
-  };
-};
 
 connection.end();
-
-// console.log(createUser());
