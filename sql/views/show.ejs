@@ -24,6 +24,11 @@
         <td><%=user.id%></td>
         <td><%=user.username%></td>
         <td><%=user.email%></td>
+        <td>
+          <form action="/users/<%=user.id%>/edit" method="get">
+            <button style="cursor:pointer;">Edit</button>
+          </form>
+        </td>
       </tr>
       <%}%>
     </table>

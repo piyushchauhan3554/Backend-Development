@@ -3,10 +3,12 @@ const mysql = require("mysql2");
 const express = require("express");
 const path = require("path");
 const app = express();
+const methodOverride=require("method-override")
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
-
+app.use(methodOverride("_method"))
+app.use(express.urlencoded({extended:true})) // for parsing 
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -62,6 +64,33 @@ app.get("/users", (req, res) => {
     res.send("DB Error");
   }
 });
+
+// edit route 
+
+app.get("/users/:id/edit",(req,res)=>{
+  const {id}=req.params;
+  console.log(id);
+  const q=`select * from users where id = '${id}'`
+  try {
+    connection.query(q,(err,result)=>{
+      if(err) throw err;
+      const user=result[0];
+      console.log(user);
+      res.render("Edit.ejs",{user});
+    })
+  } catch (error) {
+    console.log(error);
+    res.send("Some Error in DB")
+  }
+})
+
+// update username route (edit)
+
+app.patch("/users/:id",(req,res)=>{
+  res.send("updated")
+})
+
+
 
 // insert data into table using placeholders, (dynamic data)
 // let q = "insert into users(id,username,email,password) values ?";
