@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Page</title>
-</head>
-<body>
-  <h1>Number of users in the database <%=userCnt%></h1>
-  <button>join us</button>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+  </head>
+  <body>
+    <h1>Number of users in the database <%=userCnt%></h1>
+    <form action="/users/add" method="get">
+      <button style="cursor: pointer">join us</button>
+    </form>
+    <form action="/users" method="get">
+      <button style="cursor: pointer">View Users</button>
+    </form>
+  </body>
 </html>

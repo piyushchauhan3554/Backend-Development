@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add new User</title>
+    <style>
+      form {
+        border: 2px solid black;
+        padding: 5px;
+        height: 200px;
+        width: 200px;
+        gap: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Add new user</h2>
+    <form method="post" action="/users/add">
+      <input type="text" name="username" placeholder="enter name" />
+      <input type="email" name="email" placeholder="enter email id" />
+      <input type="password" name="password" placeholder="enter password" />
+      <button style="cursor: pointer">Add User</button>
+    </form>
+  </body>
+</html>

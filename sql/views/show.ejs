@@ -29,6 +29,12 @@
             <button style="cursor:pointer;">Edit</button>
           </form>
         </td>
+
+        <td>
+          <form action="/users/<%=user.id%>/delete" method="get">
+            <button style="cursor: pointer;">Delete</button>
+          </form>
+        </td>
       </tr>
       <%}%>
     </table>
