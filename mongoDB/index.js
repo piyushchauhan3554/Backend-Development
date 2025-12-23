@@ -25,7 +25,7 @@ const user1 = new User({
   age: 22,
 });
 
-// user1.save();
+user1.save();
 
 const user2 = new User({
   name: "vansh",
@@ -33,7 +33,7 @@ const user2 = new User({
   email: "vansh@gmail.com",
 });
 
-// user2.save();
+user2.save();
 
 const user3 = new User({
   name: "abhinav",
@@ -42,27 +42,27 @@ const user3 = new User({
   city: "delhi",
 });
 
-// user3.save();
+user3.save();
 
 // insertMany()
 
-// User.insertMany([
-//   {
-//     name: "panda",
-//     email: "panda123",
-//     age: 40,
-//   },
-//   {
-//     name: "priya",
-//     email: "priya123",
-//     age: 25,
-//   },
-//   {
-//     name: "gargabhi",
-//     email: "garg123",
-//     age: 33,
-//   },
-// ]);
+User.insertMany([
+  {
+    name: "panda",
+    email: "panda123",
+    age: 40,
+  },
+  {
+    name: "priya",
+    email: "priya123",
+    age: 25,
+  },
+  {
+    name: "gargabhi",
+    email: "garg123",
+    age: 33,
+  },
+]);
 
 // read operation :- find data in the database
 
@@ -84,4 +84,48 @@ User.findById("694a84c8b2b55550d67b09ff")
   .then((res) => {
     console.log(res._id);
   })
+  .catch((err) => console.log(err));
+
+// update in DB
+
+// this will also return a query object
+User.updateMany({ age: { $lt: 30 } }, { age: 35 })
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+// but updateOne and updateMany is not return a document in the result
+// for that we can use methods like findOneAndUpdate() and findByIdAndUpdate()
+// but they return old documents instead of updated.
+// for updated documents , we can use <options> {new:true}
+
+User.findOneAndUpdate({ name: "piyush" }, { name: "Piyush" },{new:true})
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+User.findByIdAndUpdate(
+  { _id: "694a84c8b2b55550d67b09ff" },
+  { age: 22 },
+  { new: true }
+)
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+User.deleteMany({ age: 35 })
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err));
+
+User.findByIdAndDelete("694a84c8b2b55550d67b0a02")
+  .then((res) => console.log(res))
   .catch((err) => console.log(err));
