@@ -1,0 +1,33 @@
+.chat-container {
+  border: 2px solid black;
+  border-radius: 5px;
+  margin: 10px 16px;
+  padding: 5px 10px;
+  background-color: rgb(73, 201, 42);
+  display: inline-block;
+}
+h1 {
+  color: white;
+}
+
+.info {
+  color: rgb(255, 255, 255);
+}
+
+.msg {
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+body {
+  background-color: #013742;
+}
+
+button{
+  background-color: greenyellow;
+  cursor: pointer;
+  padding: 6px;
+  border: none;
+  border-radius: 5px;
+}
