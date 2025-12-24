@@ -20,6 +20,10 @@
       <form action="/chats/<%=chat._id%>/edit" method="get">
         <button>Edit</button>
       </form>
+
+      <form action="/chats/<%=chat._id%>?_method=DELETE" method="post">
+        <button style="margin-top: 10px;">Delete</button>
+      </form>
     </div>
     <div style="color: white;">
       <p>Time: <%=chat.created_at.toString().split(" ")[4] %></p>

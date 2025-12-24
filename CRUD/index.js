@@ -89,10 +89,24 @@ app.put("/chats/:id/edit", async (req, res) => {
       { new: true }
     );
     console.log(doc);
-    res.redirect("/chats")
+    res.redirect("/chats");
   } catch (error) {
     console.log(error);
     res.send("Some DataBase Error");
+  }
+});
+
+// destroy route
+
+app.delete("/chats/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedDoc = await Chat.findByIdAndDelete(id);
+    console.log(deletedDoc);
+    res.redirect("/chats")
+  } catch (error) {
+    console.log(console.error());
+    res.send("DB Error");
   }
 });
 
