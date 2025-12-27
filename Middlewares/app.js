@@ -1,14 +1,13 @@
-const express=require("express")
+const express = require("express");
 
-const app=express()
+const app = express();
 
-// middleware
+// middlewares
 
 // app.use((req,res,next)=>{
 //   console.log('i am the 1st middleware');
 //   return next()
 // })
-
 
 // app.use((req,res,next)=>{
 //   console.log('i am the 2nd middleware');
@@ -25,25 +24,48 @@ const app=express()
 // })
 
 // middleware
-app.use("/random",(req,res,next)=>{
-  console.log('i am for /random route');
+app.use("/random", (req, res, next) => {
+  console.log("i am for /random route");
   next();
+});
+
+// authentication middleware : check the token for api access
+
+// we can use multiple middleware together
+const checkToken = (req, res, next) => {
+  const { token } = req.query;
+  if (token === "giveaccess") next();
+  else{
+    // throw new Error("Access Denied");
+    res.send("Access denied")
+  }
+};
+
+// secure this route
+app.get("/api", checkToken, (req, res) => {
+  res.send("data");
+});
+
+// error 
+
+app.use("/wrong" ,(req,res,next)=>{
+  abcd=abcd;
 })
 
 // routes/ api endpoints
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
   res.send("i am root route");
-})
+});
 
-app.get("/random",(req,res)=>{
+app.get("/random", (req, res) => {
   res.send("i am random route");
-})
+});
 
 // error middleware
-app.use((req,res)=>{
-  res.status(404).send("Page Not Found")
-})
+app.use((req, res) => {
+  res.status(404).send("Page Not Found");
+});
 
-app.listen(3000,()=>{
-  console.log('server is live at port:3000');
-})
+app.listen(3000, () => {
+  console.log("server is live at port:3000");
+});
