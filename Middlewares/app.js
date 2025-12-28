@@ -1,5 +1,5 @@
 const express = require("express");
-
+const ExpressError=require("./ExpressError.js")
 const app = express();
 
 // middlewares
@@ -23,6 +23,7 @@ const app = express();
 //   next();
 // })
 
+
 // middleware
 app.use("/random", (req, res, next) => {
   console.log("i am for /random route");
@@ -36,8 +37,8 @@ const checkToken = (req, res, next) => {
   const { token } = req.query;
   if (token === "giveaccess") next();
   else{
-    // throw new Error("Access Denied");
-    res.send("Access denied")
+     throw new ExpressError(401,"Access Denied");
+    // res.send("Access denied") // end req-res cycle
   }
 };
 
@@ -48,9 +49,25 @@ app.get("/api", checkToken, (req, res) => {
 
 // error 
 
-app.use("/wrong" ,(req,res,next)=>{
+// in this case , express default error handler runs
+// if there is no custom error handler middleware
+app.use("/err" ,(req,res,next)=>{
   abcd=abcd;
 })
+
+// custom error handler middlewares 
+
+app.use((err,req,res,next)=>{
+  console.log('--------Error--------');
+  next(err);
+})
+
+app.use((err,req,res,next)=>{
+  console.log('--------Error 2--------');
+  const {status=500,message}=err;
+  res.status(status).send(message)
+})
+
 
 // routes/ api endpoints
 app.get("/", (req, res) => {
