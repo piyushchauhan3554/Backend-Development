@@ -55,6 +55,13 @@ app.use("/err" ,(req,res,next)=>{
   abcd=abcd;
 })
 
+
+// activity question
+app.get("/admin",(req,res)=>{
+  throw new ExpressError(403,"Forbidden")
+})
+
+
 // custom error handler middlewares 
 
 app.use((err,req,res,next)=>{
@@ -67,7 +74,6 @@ app.use((err,req,res,next)=>{
   const {status=500,message}=err;
   res.status(status).send(message)
 })
-
 
 // routes/ api endpoints
 app.get("/", (req, res) => {
