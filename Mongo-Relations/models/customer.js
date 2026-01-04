@@ -40,4 +40,14 @@ const insertCustomer = async ()=>{
   
 }
 
-insertCustomer()
+// insertCustomer()
+
+// findCustomer()
+
+async function findCustomer(){
+  const doc=await Customer.find().populate("orders")
+  console.log(doc[0]);
+  
+}
+
+findCustomer()
