@@ -24,6 +24,19 @@ const customerSchema = new mongoose.Schema({
   ],
 });
 
+// customerSchema.pre("findOneAndDelete",async ()=>{
+//   console.log('pre middleware');
+// })
+
+customerSchema.post("findOneAndDelete",async (cus)=>{
+  if(cus.orders.length){
+    const doc=await Order.deleteMany({_id:{$in:cus.orders}})
+    console.log(doc);
+    
+  }
+})
+
+
 const Customer=mongoose.model("Customer",customerSchema)
 
 const insertCustomer = async ()=>{
@@ -50,4 +63,9 @@ async function findCustomer(){
   
 }
 
-findCustomer()
+const delCust=async ()=>{
+  const del=await Customer.findByIdAndDelete("695b901f265ed422d36e21a5")
+  console.log(del); 
+}
+
+delCust()
